@@ -1,0 +1,711 @@
+"""
+Copyright (C) 2023 Acoustic, L.P. All rights reserved.
+
+NOTICE: This file contains material that is proprietary to Acoustic, L.P. and/or other developers.
+No license is granted under any intellectual or industrial property rights of Acoustic, L.P. 
+except as may be provided in an agreement with Acoustic, L.P. Any unauthorized copying or 
+distribution of content from this file is prohibited.
+"""
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+interface SubscriptionGroup {
+  """Id"""
+  id: ID!
+  type: SubscriptionGroupType!
+  name: String!
+  status: SubscriptionGroupStatus!
+  outgoingCode: SubscriptionGroupCode
+  shortenLinks: Boolean
+  creationDate: DateTime
+  modifiedDate: DateTime
+}
+
+interface MessageContent {
+  id: ID!
+  name: String!
+  tags: [String!]!
+  status: MessageSendStatus!
+  dataSetId: String
+  tracking: MessageContentTracking!
+}
+
+enum SubscriptionGroupType {
+  SMS_ONE_WAY_OPT_IN
+  SMS_TWO_WAY_OPT_IN
+  SMS_DOUBLE_OPT_IN
+  SMS_GLOBAL_OPT_OUT
+}
+
+enum SubscriptionGroupStatus {
+  DRAFT
+  RUNNING
+  COMPLETE
+  SCHEDULED
+  PRE_LAUNCH
+  PAUSED
+  ARCHIVED
+}
+
+enum MessageSendStatus {
+  DRAFT
+  SCHEDULED
+  SENDING
+  SENT
+  CANCELLING
+  FAILED
+  OTHER
+}
+
+type MessageContentTracking {
+  createdAt: DateTime!
+  lastModifiedAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+interface Journey {
+  type: JourneyType!
+  id: ID!
+  name: String!
+  incomingCode: SubscriptionGroupCode!
+  outgoingCode: SubscriptionGroupCode!
+  keywords: [String!]!
+  duration: DurationType
+  responseMessage: MessageType!
+  characterMapping: Boolean!
+  shortenLinks: Boolean!
+  status: SubscriptionGroupStatus!
+  creationDate: DateTime
+  modifiedDate: DateTime
+}
+
+enum JourneyType {
+  SMS_AUTORESPONDER
+  SMS_GLOBAL_HELP
+  SMS_GLOBAL_CATCHALL
+}
+
+type PageInfoWithCount {
+  startCursor: String
+  endCursor: String
+  hasPreviousPage: Boolean!
+  hasNextPage: Boolean!
+  count: Int!
+}
+
+type Keyword {
+  id: ID!
+  name: String!
+  creationDate: DateTime
+  modifiedDate: DateTime
+}
+
+type Code {
+  id: ID!
+  name: String!
+  type: CodeType!
+  supportsInboundMessaging: Boolean!
+  description: String
+  creationDate: DateTime
+  modifiedDate: DateTime
+  keywords: [Keyword!]
+}
+
+enum CodeType {
+  SMS_TRANSACTIONAL
+  SMS_PROMOTIONAL
+  SMS_TRANSCRUB
+}
+
+type SubscriptionGroupCode {
+  id: ID!
+  name: String!
+  type: CodeType!
+}
+
+type DurationType {
+  startDate: DateTime
+  endDate: DateTime
+}
+
+type MessageType {
+  messageText: String!
+}
+
+type ActionMessageType {
+  messageText: String!
+  actionKeyword: String!
+}
+
+type TimedMessageType {
+  messageText: String!
+  triggerDate: DateTime!
+}
+
+type SendingHoursType {
+  """startHour represents a {hour}:{minute} format, where the value of hour is between 00 and 23 and the value of minute is between 00 and 59. Example values are 00:15, 23:59"""
+  startHour: String
+  """endHour represents a {hour}:{minute} format, where the value of hour is between 00 and 23 and the value of minute is between 00 and 59. Example values are 00:15, 23:59"""
+  endHour: String
+}
+
+type SessionDuration {
+  hours: String
+  minutes: String
+}
+
+type SMSOneWayOptIn implements SubscriptionGroup{
+  """Id"""
+  id: ID!
+  type: SubscriptionGroupType!
+  name: String!
+  status: SubscriptionGroupStatus!
+  outgoingCode: SubscriptionGroupCode
+  shortenLinks: Boolean
+  creationDate: DateTime
+  modifiedDate: DateTime
+}
+
+type SMSTwoWayOptIn implements SubscriptionGroup{
+  """Id"""
+  id: ID!
+  type: SubscriptionGroupType!
+  name: String!
+  status: SubscriptionGroupStatus!
+  outgoingCode: SubscriptionGroupCode
+  shortenLinks: Boolean
+  creationDate: DateTime
+  modifiedDate: DateTime
+  incomingCode: SubscriptionGroupCode
+  timeZoneName: String
+  sendingHours: SendingHoursType
+  duration: DurationType
+  keywords: [String!]!
+  welcomeMessage: MessageType!
+  optOutMessage: ActionMessageType!
+  helpMessage: ActionMessageType!
+  alreadyOptedInMessage: MessageType
+  beforeStartMessage: TimedMessageType
+  afterEndMessage: TimedMessageType
+  characterMapping: Boolean!
+}
+
+type SMSDoubleOptIn implements SubscriptionGroup{
+  """Id"""
+  id: ID!
+  type: SubscriptionGroupType!
+  name: String!
+  status: SubscriptionGroupStatus!
+  outgoingCode: SubscriptionGroupCode
+  shortenLinks: Boolean
+  creationDate: DateTime
+  modifiedDate: DateTime
+  incomingCode: SubscriptionGroupCode
+  twoWayOptInIds: [String!]!
+  optIn: Boolean!
+  keywords: [String!]
+  startMessage: MessageType!
+  confirmationMessage: ActionMessageType!
+  stopMessage: ActionMessageType!
+  helpMessage: MessageType!
+  timeZoneName: String
+  duration: DurationType
+  sessionDuration: SessionDuration
+  beforeStartMessage: TimedMessageType
+  afterEndMessage: TimedMessageType
+  characterMapping: Boolean!
+}
+
+
+type GlobalOptOut implements SubscriptionGroup{
+  """Id"""
+  id: ID!
+  type: SubscriptionGroupType!
+  name: String!
+  status: SubscriptionGroupStatus!
+  outgoingCode: SubscriptionGroupCode
+  shortenLinks: Boolean
+  creationDate: DateTime
+  modifiedDate: DateTime
+  incomingCode: SubscriptionGroupCode
+  keywords: [String!]!
+  stopMessage: MessageType!
+  timeZoneName: String
+  duration: DurationType
+  characterMapping: Boolean!
+}
+
+type SubscriptionGroupConnection {
+  edges: [SubscriptionGroupEdge!]!
+  pageInfo: PageInfoWithCount!
+}
+
+type SubscriptionGroupEdge {
+  node: SubscriptionGroup!
+  cursor: String!
+}
+
+type Autoresponder implements Journey {
+  type: JourneyType!
+  id: ID!
+  name: String!
+  incomingCode: SubscriptionGroupCode!
+  outgoingCode: SubscriptionGroupCode!
+  keywords: [String!]!
+  duration: DurationType
+  responseMessage: MessageType!
+  characterMapping: Boolean!
+  shortenLinks: Boolean!
+  status: SubscriptionGroupStatus!
+  creationDate: DateTime
+  modifiedDate: DateTime
+  twoWayOptInIds: [String!]
+  timeZoneName: String
+}
+
+type GlobalJourney implements Journey{
+  type: JourneyType!
+  id: ID!
+  name: String!
+  incomingCode: SubscriptionGroupCode!
+  outgoingCode: SubscriptionGroupCode!
+  keywords: [String!]!
+  duration: DurationType
+  responseMessage: MessageType!
+  characterMapping: Boolean!
+  shortenLinks: Boolean!
+  status: SubscriptionGroupStatus!
+  creationDate: DateTime
+  modifiedDate: DateTime
+}
+
+type SmsMessage implements MessageContent {
+  id: ID!
+  name: String!
+  tags: [String!]!
+  status: MessageSendStatus!
+  dataSetId: String
+  tracking: MessageContentTracking!
+  """Text body of message."""
+  body: String
+  """
+  Publicly accessible URL to media file attached to MMS message. Supported file formats: jpg, jpeg, png, gif, tiff, bmp, ics, ical, ifb, icalendar, vcf, csv, pdf, rtf, mp4, mov, webm, mpeg.
+  """
+  mediaLink: String
+  """Allows to shorten links in text body and enables link tracking."""
+  shortenLinks: Boolean!
+  """
+  Allows to swap non-GSM standard characters to reduce text body character count.
+  """
+  characterMapping: Boolean!
+  """Identifiers of SMS subscription groups."""
+  subscriptionGroupIds: [String!]!
+}
+
+type SmsMessageConnection {
+  edges: [SmsMessageEdge!]!
+  pageInfo: PageInfoWithCount!
+  nodes: [SmsMessage!]!
+}
+
+type SmsMessageEdge {
+  node: SmsMessage!
+  cursor: String!
+}
+
+type DeleteSmsMessageResponse {
+  success: Boolean!
+}
+
+type Mailing {
+  id: ID!
+  message: MessageContent!
+  sendDateUTC: DateTime
+  scheduledDateUTC: DateTime
+  """
+  Specifies timezone in which scheduledDate was provided. Supported format according to IANA Time Zone Database.
+  """
+  scheduledTimezone: String
+  """
+  Specifies the maximum number messages to be sent per hour. Provided value would be rounded up to a multiple of 1000.
+  """
+  maxSendsPerHour: Int
+}
+
+type MailingConnection {
+  edges: [MailingEdge!]!
+  pageInfo: PageInfoWithCount!
+  nodes: [Mailing!]!
+}
+
+type MailingEdge {
+  node: Mailing!
+  cursor: String!
+}
+
+type TestSendMessageResponse {
+  accepted: Boolean!
+}
+
+input DurationInput {
+  startDate: DateTime
+  endDate: DateTime
+}
+
+input MessageInput {
+  messageText: String!
+}
+
+input ActionMessageInput {
+  messageText: String!
+  actionKeyword: String!
+}
+
+input TimedMessageInput {
+  messageText: String!
+  triggerDate: DateTime!
+}
+
+input SendingHoursInput {
+  startHour: String
+  endHour: String
+}
+
+
+input SessionDurationInput {
+  hours: String
+  minutes: String
+}
+
+input MessageContentFilter {
+  name: String
+  tags: ArrayFilter
+  statuses: [MessageSendStatus!]
+  lastModified: DateFilter
+  created: DateFilter
+}
+
+input ArrayFilter {
+  allOf: [String!]
+  anyOf: [String!]
+}
+
+input DateFilter {
+  from: DateTime
+  to: DateTime
+}
+
+type Query {
+  CodeAll(channel: CodeChannelType! = SMS): [Code!]!
+  CodeById(id: ID!, channel: CodeChannelType! = SMS): Code!
+  CodeByName(name: String!, channel: CodeChannelType! = SMS): Code!
+  KeywordsByCode(codeId: String!): [Keyword!]!
+  KeywordsByAggregator(aggregatorId: String!): [Keyword!]!
+  mobileMessagingAutoresponderAll: [Autoresponder!]!
+  mobileMessagingAutoresponderById(id: ID!): Autoresponder!
+  SubscriptionGroupAll(filter: SubscriptionGroupFilter, before: String, after: String, first: Float, last: Float): SubscriptionGroupConnection!
+  SubscriptionGroupById(id: ID!): SubscriptionGroup!
+  smsMessages(filter: MessageContentFilter, before: String, after: String, first: Float, last: Float): SmsMessageConnection!
+  smsMessage(id: ID!): SmsMessage!
+  mailing(id: ID!): Mailing!
+  mailings(filter: MessageContentFilter, before: String, after: String, first: Float, last: Float): MailingConnection!
+}
+
+enum CodeChannelType {
+  SMS
+}
+
+input SubscriptionGroupFilter {
+  name: String
+  parentId: String
+  types: [SubscriptionGroupType!]
+  codeIds: [String!]
+  statuses: [SubscriptionGroupStatus!]
+  keywords: [String!]
+}
+
+type Mutation {
+  createSmsAutoresponder(createAutoresponderInput: CreateAutoresponderInput!): Autoresponder!
+  updateMobileMessagingAutoresponder(id: String!, update: UpdateAutoresponder!): Journey!
+  createOneWayOptIn(create: CreateSMSOneWayOptIn!): SMSOneWayOptIn!
+  updateOneWayOptIn(id: String!, update: UpdateSMSOneWayOptIn!): SMSOneWayOptIn!
+  createTwoWayOptIn(create: CreateTwoWayOptIn!): SMSTwoWayOptIn!
+  updateTwoWayOptIn(id: String!, update: UpdateTwoWayOptIn!): SMSTwoWayOptIn!
+  createDoubleOptIn(create: CreateSMSDoubleOptIn!): SMSDoubleOptIn!
+  updateDoubleOptIn(id: String!, update: UpdateSMSDoubleOptIn!): SMSDoubleOptIn!
+  createGlobalOptOut(create: CreateGlobalOptOut!): GlobalOptOut!
+  updateGlobalOptOut(id: String!, update: UpdateGlobalOptOut!): GlobalOptOut!
+  createGlobalCatchAll(createGlobalCatchAllInput: CreateGlobalCatchAllInput!): GlobalJourney!
+  updateGlobalCatchAll(id: String!, update: UpdateGlobalCatchAllInput!): GlobalJourney!
+  createGlobalHelp(createGlobalHelpInput: CreateGlobalJourneyInput!): GlobalJourney!
+  updateGlobalHelp(id: String!, update: UpdateGlobalJourneyInput!): GlobalJourney!
+  createSmsMessage(createSmsInput: CreateSmsInput!): SmsMessage!
+  updateSmsMessage(updateSmsInput: UpdateSmsInput!): SmsMessage!
+  deleteSmsMessage(id: ID!): DeleteSmsMessageResponse!
+  scheduleMessage(messageId: ID!, scheduleInput: ScheduleInput): Mailing!
+  testSendMessage(messageId: ID!, testSendInput: TestSendInput!): TestSendMessageResponse!
+  cancelScheduledMessage(messageId: ID!): Mailing!
+}
+
+enum KeywordAction {
+  STOP
+  AUTO_REPLY
+}
+
+input CreateAutoresponderInput {
+  name: String!
+  outgoingCodeId: String!
+  incomingCodeId: String!
+  keywords: [String!]!
+  responseMessage: MessageInput!
+  characterMapping: Boolean
+  shortenLinks: Boolean
+  duration: DurationInput
+  twoWayOptInIds: [String!]
+  timeZoneName: String
+}
+
+input CreateSMSOneWayOptIn {
+  name: String!
+  characterMapping: Boolean
+  shortenLinks: Boolean
+  outgoingCodeId: String!
+}
+
+input UpdateSMSOneWayOptIn {
+  name: String
+  outgoingCodeId: String
+  status: SubscriptionGroupOperation
+}
+
+enum SubscriptionGroupOperation {
+  PAUSE
+  RESUME
+  COMPLETE
+}
+
+input CreateTwoWayOptIn {
+  name: String!
+  characterMapping: Boolean
+  shortenLinks: Boolean
+  outgoingCodeId: String!
+  incomingCodeId: String!
+  timeZoneName: String
+  sendingHours: SendingHoursInput
+  duration: DurationInput
+  keywords: [String!]!
+  welcomeMessage: MessageInput!
+  optOutMessage: ActionMessageInput!
+  helpMessage: ActionMessageInput!
+  alreadyOptedInMessage: MessageInput
+  beforeStartMessage: TimedMessageInput
+  afterEndMessage: TimedMessageInput
+}
+
+input UpdateTwoWayOptIn {
+  name: String
+  characterMapping: Boolean
+  shortenLinks: Boolean
+  outgoingCodeId: String
+  incomingCodeId: String
+  timeZoneName: String
+  sendingHours: SendingHoursInput
+  duration: DurationInput
+  keywords: [String!]
+  welcomeMessage: MessageInput
+  optOutMessage: ActionMessageInput
+  helpMessage: ActionMessageInput
+  alreadyOptedInMessage: MessageInput
+  beforeStartMessage: TimedMessageInput
+  afterEndMessage: TimedMessageInput
+  status: SubscriptionGroupOperation
+}
+
+input CreateSMSDoubleOptIn {
+  name: String!
+  characterMapping: Boolean
+  shortenLinks: Boolean
+  outgoingCodeId: String!
+  incomingCodeId: String!
+  twoWayOptInIds: [String!]!
+  optIn: Boolean!
+  keywords: [String!]
+  startMessage: MessageInput!
+  confirmationMessage: ActionMessageInput!
+  stopMessage: ActionMessageInput!
+  helpMessage: MessageInput!
+  timeZoneName: String
+  duration: DurationInput
+  sessionDuration: SessionDurationInput
+  beforeStartMessage: TimedMessageInput
+  afterEndMessage: TimedMessageInput
+}
+
+input UpdateSMSDoubleOptIn {
+  name: String
+  characterMapping: Boolean
+  shortenLinks: Boolean
+  outgoingCodeId: String
+  incomingCodeId: String
+  twoWayOptInIds: [String!]
+  optIn: Boolean
+  keywords: [String!]
+  startMessage: MessageInput
+  confirmationMessage: ActionMessageInput
+  stopMessage: ActionMessageInput
+  helpMessage: MessageInput
+  timeZoneName: String
+  duration: DurationInput
+  sessionDuration: SessionDurationInput
+  beforeStartMessage: TimedMessageInput
+  afterEndMessage: TimedMessageInput
+  status: SubscriptionGroupOperation
+}
+
+input CreateGlobalOptOut {
+  name: String!
+  characterMapping: Boolean
+  shortenLinks: Boolean
+  outgoingCodeId: String!
+  incomingCodeId: String!
+  stopMessage: MessageInput!
+  keywords: [String!]!
+  timeZoneName: String
+  duration: DurationInput
+}
+
+input UpdateGlobalOptOut {
+  name: String
+  characterMapping: Boolean
+  shortenLinks: Boolean
+  outgoingCodeId: String
+  incomingCodeId: String
+  stopMessage: MessageInput
+  keywords: [String!]
+  timeZoneName: String
+  duration: DurationInput
+  status: SubscriptionGroupOperation
+}
+
+input CreateGlobalCatchAllInput {
+  name: String!
+  outgoingCodeId: String!
+  incomingCodeId: String!
+  responseMessage: MessageInput!
+  characterMapping: Boolean
+  shortenLinks: Boolean
+}
+
+input UpdateGlobalCatchAllInput {
+  name: String
+  outgoingCodeId: String
+  incomingCodeId: String
+  responseMessage: MessageInput
+  characterMapping: Boolean
+  shortenLinks: Boolean
+  status: SubscriptionGroupOperation
+}
+
+input UpdateAutoresponder {
+  name: String
+  outgoingCodeId: String
+  incomingCodeId: String
+  keywords: [String!]
+  responseMessage: MessageInput
+  characterMapping: Boolean
+  shortenLinks: Boolean
+  duration: DurationInput
+  twoWayOptInIds: [String!]
+  timeZoneName: String
+  status: SubscriptionGroupOperation
+}
+
+input CreateGlobalJourneyInput {
+  name: String!
+  outgoingCodeId: String!
+  incomingCodeId: String!
+  keywords: [String!]!
+  responseMessage: MessageInput!
+  characterMapping: Boolean
+  shortenLinks: Boolean
+}
+
+input UpdateGlobalJourneyInput {
+  name: String
+  outgoingCodeId: String
+  incomingCodeId: String
+  keywords: [String!]
+  responseMessage: MessageInput
+  characterMapping: Boolean
+  shortenLinks: Boolean
+  status: SubscriptionGroupOperation
+}
+
+input CreateSmsInput {
+  name: String!
+  tags: [String!]
+  dataSetId: String
+  """Text body of message."""
+  body: String
+  """
+  Publicly accessible URL to media file attached to MMS message. Supported file formats: jpg, jpeg, png, gif, tiff, bmp, ics, ical, ifb, icalendar, vcf, csv, pdf, rtf, mp4, mov, webm, mpeg.
+  """
+  mediaLink: String
+  """Allows to shorten links in text body and enables link tracking."""
+  shortenLinks: Boolean = true
+  """
+  Allows to swap non-GSM standard characters to reduce text body character count.
+  """
+  characterMapping: Boolean = false
+  """Identifiers of SMS subscription groups."""
+  subscriptionGroupIds: [String!]
+}
+
+input UpdateSmsInput {
+  id: ID!
+  name: String
+  tags: [String!]
+  dataSetId: String
+  """Text body of message."""
+  body: String
+  """
+  Publicly accessible URL to media file attached to MMS message. Supported file formats: jpg, jpeg, png, gif, tiff, bmp, ics, ical, ifb, icalendar, vcf, csv, pdf, rtf, mp4, mov, webm, mpeg.
+  """
+  mediaLink: String
+  """Allows to shorten links in text body and enables link tracking."""
+  shortenLinks: Boolean = true
+  """
+  Allows to swap non-GSM standard characters to reduce text body character count.
+  """
+  characterMapping: Boolean = false
+  """Identifiers of SMS subscription groups."""
+  subscriptionGroupIds: [String!]
+}
+
+input ScheduleInput {
+  scheduledDate: DateTime
+  """
+  Specifies timezone in which scheduledDate was provided. Supported format according to IANA Time Zone Database.
+  """
+  scheduledTimezone: String
+  """
+  Specifies the maximum number messages to be sent per hour. Provided value would be rounded up to a multiple of 1000.
+  """
+  maxSendsPerHour: Int
+}
+
+input TestSendInput {
+  """Specifies recipient's phone number, including country code."""
+  destinationPhoneNumber: String
+  """
+  Determines sender's identity, based on a phone number with country code, stored in data set.
+  """
+  identityPhoneNumber: String
+}

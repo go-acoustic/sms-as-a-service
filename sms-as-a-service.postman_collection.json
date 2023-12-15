@@ -1,0 +1,996 @@
+{
+	"info": {
+		"_postman_id": "06be0ea9-bf68-4b4b-8f96-3feb836a2ba1",
+		"name": "sms-as-a-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31731521",
+		"_collection_link": "https://www.postman.com/restless-comet-622286/workspace/acoustic-sms-as-a-service/collection/31731521-06be0ea9-bf68-4b4b-8f96-3feb836a2ba1?action=share&source=collection_link&creator=31731521"
+	},
+	"item": [
+		{
+			"name": "mutations",
+			"item": [
+				{
+					"name": "createSmsAutoresponder",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation createSmsAutoresponder ($createAutoresponderInput: CreateAutoresponderInput!) {\n    createSmsAutoresponder (createAutoresponderInput: $createAutoresponderInput) {\n        type\n        id\n        name\n        incomingCode {\n            id\n            name\n            type\n        }\n        outgoingCode {\n            id\n            name\n            type\n        }\n        keywords\n        duration {\n            startDate\n            endDate\n        }\n        responseMessage {\n            messageText\n        }\n        characterMapping\n        shortenLinks\n        status\n        creationDate\n        modifiedDate\n        twoWayOptInIds\n        timeZoneName\n    }\n}",
+								"variables": "{\n  \"createAutoresponderInput\": {\n    \"name\": \"\",\n    \"outgoingCodeId\": \"\",\n    \"incomingCodeId\": \"\",\n    \"keywords\": [\n      \"\"\n    ],\n    \"responseMessage\": {\n      \"messageText\": \"\"\n    },\n    \"characterMapping\": true,\n    \"shortenLinks\": true,\n    \"duration\": {\n      \"startDate\": \"\",\n      \"endDate\": \"\"\n    },\n    \"twoWayOptInIds\": [\n      \"\"\n    ],\n    \"timeZoneName\": \"\"\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateMobileMessagingAutoresponder",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation updateMobileMessagingAutoresponder ($id: String!, $update: UpdateAutoresponder!) {\n    updateMobileMessagingAutoresponder (id: $id, update: $update) {\n        type\n        id\n        name\n        incomingCode {\n            id\n            name\n            type\n        }\n        outgoingCode {\n            id\n            name\n            type\n        }\n        keywords\n        duration {\n            startDate\n            endDate\n        }\n        responseMessage {\n            messageText\n        }\n        characterMapping\n        shortenLinks\n        status\n        creationDate\n        modifiedDate\n    }\n}",
+								"variables": "{\n  \"id\": \"\",\n  \"update\": {\n    \"name\": \"\",\n    \"outgoingCodeId\": \"\",\n    \"incomingCodeId\": \"\",\n    \"keywords\": [\n      \"\"\n    ],\n    \"responseMessage\": {\n      \"messageText\": \"\"\n    },\n    \"characterMapping\": true,\n    \"shortenLinks\": true,\n    \"duration\": {\n      \"startDate\": \"\",\n      \"endDate\": \"\"\n    },\n    \"twoWayOptInIds\": [\n      \"\"\n    ],\n    \"timeZoneName\": \"\",\n    \"status\": \"\"\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createOneWayOptIn",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation createOneWayOptIn ($create: CreateSMSOneWayOptIn!) {\n    createOneWayOptIn (create: $create) {\n        id\n        type\n        name\n        status\n        outgoingCode {\n            id\n            name\n            type\n        }\n        shortenLinks\n        creationDate\n        modifiedDate\n    }\n}",
+								"variables": "{\n  \"create\": {\n    \"name\": \"\",\n    \"characterMapping\": true,\n    \"shortenLinks\": true,\n    \"outgoingCodeId\": \"\"\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateOneWayOptIn",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation updateOneWayOptIn ($id: String!, $update: UpdateSMSOneWayOptIn!) {\n    updateOneWayOptIn (id: $id, update: $update) {\n        id\n        type\n        name\n        status\n        outgoingCode {\n            id\n            name\n            type\n        }\n        shortenLinks\n        creationDate\n        modifiedDate\n    }\n}",
+								"variables": "{\n  \"id\": \"\",\n  \"update\": {\n    \"name\": \"\",\n    \"outgoingCodeId\": \"\",\n    \"status\": \"\"\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createTwoWayOptIn",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation createTwoWayOptIn ($create: CreateTwoWayOptIn!) {\n    createTwoWayOptIn (create: $create) {\n        id\n        type\n        name\n        status\n        outgoingCode {\n            id\n            name\n            type\n        }\n        shortenLinks\n        creationDate\n        modifiedDate\n        incomingCode {\n            id\n            name\n            type\n        }\n        timeZoneName\n        sendingHours {\n            startHour\n            endHour\n        }\n        duration {\n            startDate\n            endDate\n        }\n        keywords\n        welcomeMessage {\n            messageText\n        }\n        optOutMessage {\n            messageText\n            actionKeyword\n        }\n        helpMessage {\n            messageText\n            actionKeyword\n        }\n        alreadyOptedInMessage {\n            messageText\n        }\n        beforeStartMessage {\n            messageText\n            triggerDate\n        }\n        afterEndMessage {\n            messageText\n            triggerDate\n        }\n        characterMapping\n    }\n}",
+								"variables": "{\n  \"create\": {\n    \"name\": \"\",\n    \"characterMapping\": true,\n    \"shortenLinks\": true,\n    \"outgoingCodeId\": \"\",\n    \"incomingCodeId\": \"\",\n    \"timeZoneName\": \"\",\n    \"sendingHours\": {\n      \"startHour\": \"\",\n      \"endHour\": \"\"\n    },\n    \"duration\": {\n      \"startDate\": \"\",\n      \"endDate\": \"\"\n    },\n    \"keywords\": [\n      \"\"\n    ],\n    \"welcomeMessage\": {\n      \"messageText\": \"\"\n    },\n    \"optOutMessage\": {\n      \"messageText\": \"\",\n      \"actionKeyword\": \"\"\n    },\n    \"helpMessage\": {\n      \"messageText\": \"\",\n      \"actionKeyword\": \"\"\n    },\n    \"alreadyOptedInMessage\": {\n      \"messageText\": \"\"\n    },\n    \"beforeStartMessage\": {\n      \"messageText\": \"\",\n      \"triggerDate\": \"\"\n    },\n    \"afterEndMessage\": {\n      \"messageText\": \"\",\n      \"triggerDate\": \"\"\n    }\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateTwoWayOptIn",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation updateTwoWayOptIn ($id: String!, $update: UpdateTwoWayOptIn!) {\n    updateTwoWayOptIn (id: $id, update: $update) {\n        id\n        type\n        name\n        status\n        outgoingCode {\n            id\n            name\n            type\n        }\n        shortenLinks\n        creationDate\n        modifiedDate\n        incomingCode {\n            id\n            name\n            type\n        }\n        timeZoneName\n        sendingHours {\n            startHour\n            endHour\n        }\n        duration {\n            startDate\n            endDate\n        }\n        keywords\n        welcomeMessage {\n            messageText\n        }\n        optOutMessage {\n            messageText\n            actionKeyword\n        }\n        helpMessage {\n            messageText\n            actionKeyword\n        }\n        alreadyOptedInMessage {\n            messageText\n        }\n        beforeStartMessage {\n            messageText\n            triggerDate\n        }\n        afterEndMessage {\n            messageText\n            triggerDate\n        }\n        characterMapping\n    }\n}",
+								"variables": "{\n  \"id\": \"\",\n  \"update\": {\n    \"name\": \"\",\n    \"characterMapping\": true,\n    \"shortenLinks\": true,\n    \"outgoingCodeId\": \"\",\n    \"incomingCodeId\": \"\",\n    \"timeZoneName\": \"\",\n    \"sendingHours\": {\n      \"startHour\": \"\",\n      \"endHour\": \"\"\n    },\n    \"duration\": {\n      \"startDate\": \"\",\n      \"endDate\": \"\"\n    },\n    \"keywords\": [\n      \"\"\n    ],\n    \"welcomeMessage\": {\n      \"messageText\": \"\"\n    },\n    \"optOutMessage\": {\n      \"messageText\": \"\",\n      \"actionKeyword\": \"\"\n    },\n    \"helpMessage\": {\n      \"messageText\": \"\",\n      \"actionKeyword\": \"\"\n    },\n    \"alreadyOptedInMessage\": {\n      \"messageText\": \"\"\n    },\n    \"beforeStartMessage\": {\n      \"messageText\": \"\",\n      \"triggerDate\": \"\"\n    },\n    \"afterEndMessage\": {\n      \"messageText\": \"\",\n      \"triggerDate\": \"\"\n    },\n    \"status\": \"\"\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createDoubleOptIn",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation createDoubleOptIn ($create: CreateSMSDoubleOptIn!) {\n    createDoubleOptIn (create: $create) {\n        id\n        type\n        name\n        status\n        outgoingCode {\n            id\n            name\n            type\n        }\n        shortenLinks\n        creationDate\n        modifiedDate\n        incomingCode {\n            id\n            name\n            type\n        }\n        twoWayOptInIds\n        optIn\n        keywords\n        startMessage {\n            messageText\n        }\n        confirmationMessage {\n            messageText\n            actionKeyword\n        }\n        stopMessage {\n            messageText\n            actionKeyword\n        }\n        helpMessage {\n            messageText\n        }\n        timeZoneName\n        duration {\n            startDate\n            endDate\n        }\n        sessionDuration {\n            hours\n            minutes\n        }\n        beforeStartMessage {\n            messageText\n            triggerDate\n        }\n        afterEndMessage {\n            messageText\n            triggerDate\n        }\n        characterMapping\n    }\n}",
+								"variables": "{\n  \"create\": {\n    \"name\": \"\",\n    \"characterMapping\": true,\n    \"shortenLinks\": true,\n    \"outgoingCodeId\": \"\",\n    \"incomingCodeId\": \"\",\n    \"twoWayOptInIds\": [\n      \"\"\n    ],\n    \"optIn\": true,\n    \"keywords\": [\n      \"\"\n    ],\n    \"startMessage\": {\n      \"messageText\": \"\"\n    },\n    \"confirmationMessage\": {\n      \"messageText\": \"\",\n      \"actionKeyword\": \"\"\n    },\n    \"stopMessage\": {\n      \"messageText\": \"\",\n      \"actionKeyword\": \"\"\n    },\n    \"helpMessage\": {\n      \"messageText\": \"\"\n    },\n    \"timeZoneName\": \"\",\n    \"duration\": {\n      \"startDate\": \"\",\n      \"endDate\": \"\"\n    },\n    \"sessionDuration\": {\n      \"hours\": \"\",\n      \"minutes\": \"\"\n    },\n    \"beforeStartMessage\": {\n      \"messageText\": \"\",\n      \"triggerDate\": \"\"\n    },\n    \"afterEndMessage\": {\n      \"messageText\": \"\",\n      \"triggerDate\": \"\"\n    }\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateDoubleOptIn",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation updateDoubleOptIn ($id: String!, $update: UpdateSMSDoubleOptIn!) {\n    updateDoubleOptIn (id: $id, update: $update) {\n        id\n        type\n        name\n        status\n        outgoingCode {\n            id\n            name\n            type\n        }\n        shortenLinks\n        creationDate\n        modifiedDate\n        incomingCode {\n            id\n            name\n            type\n        }\n        twoWayOptInIds\n        optIn\n        keywords\n        startMessage {\n            messageText\n        }\n        confirmationMessage {\n            messageText\n            actionKeyword\n        }\n        stopMessage {\n            messageText\n            actionKeyword\n        }\n        helpMessage {\n            messageText\n        }\n        timeZoneName\n        duration {\n            startDate\n            endDate\n        }\n        sessionDuration {\n            hours\n            minutes\n        }\n        beforeStartMessage {\n            messageText\n            triggerDate\n        }\n        afterEndMessage {\n            messageText\n            triggerDate\n        }\n        characterMapping\n    }\n}",
+								"variables": "{\n  \"id\": \"\",\n  \"update\": {\n    \"name\": \"\",\n    \"characterMapping\": true,\n    \"shortenLinks\": true,\n    \"outgoingCodeId\": \"\",\n    \"incomingCodeId\": \"\",\n    \"twoWayOptInIds\": [\n      \"\"\n    ],\n    \"optIn\": true,\n    \"keywords\": [\n      \"\"\n    ],\n    \"startMessage\": {\n      \"messageText\": \"\"\n    },\n    \"confirmationMessage\": {\n      \"messageText\": \"\",\n      \"actionKeyword\": \"\"\n    },\n    \"stopMessage\": {\n      \"messageText\": \"\",\n      \"actionKeyword\": \"\"\n    },\n    \"helpMessage\": {\n      \"messageText\": \"\"\n    },\n    \"timeZoneName\": \"\",\n    \"duration\": {\n      \"startDate\": \"\",\n      \"endDate\": \"\"\n    },\n    \"sessionDuration\": {\n      \"hours\": \"\",\n      \"minutes\": \"\"\n    },\n    \"beforeStartMessage\": {\n      \"messageText\": \"\",\n      \"triggerDate\": \"\"\n    },\n    \"afterEndMessage\": {\n      \"messageText\": \"\",\n      \"triggerDate\": \"\"\n    },\n    \"status\": \"\"\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createGlobalOptOut",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation createGlobalOptOut ($create: CreateGlobalOptOut!) {\n    createGlobalOptOut (create: $create) {\n        id\n        type\n        name\n        status\n        outgoingCode {\n            id\n            name\n            type\n        }\n        shortenLinks\n        creationDate\n        modifiedDate\n        incomingCode {\n            id\n            name\n            type\n        }\n        keywords\n        stopMessage {\n            messageText\n        }\n        timeZoneName\n        duration {\n            startDate\n            endDate\n        }\n        characterMapping\n    }\n}",
+								"variables": "{\n  \"create\": {\n    \"name\": \"\",\n    \"characterMapping\": true,\n    \"shortenLinks\": true,\n    \"outgoingCodeId\": \"\",\n    \"incomingCodeId\": \"\",\n    \"stopMessage\": {\n      \"messageText\": \"\"\n    },\n    \"keywords\": [\n      \"\"\n    ],\n    \"timeZoneName\": \"\",\n    \"duration\": {\n      \"startDate\": \"\",\n      \"endDate\": \"\"\n    }\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateGlobalOptOut",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation updateGlobalOptOut ($id: String!, $update: UpdateGlobalOptOut!) {\n    updateGlobalOptOut (id: $id, update: $update) {\n        id\n        type\n        name\n        status\n        outgoingCode {\n            id\n            name\n            type\n        }\n        shortenLinks\n        creationDate\n        modifiedDate\n        incomingCode {\n            id\n            name\n            type\n        }\n        keywords\n        stopMessage {\n            messageText\n        }\n        timeZoneName\n        duration {\n            startDate\n            endDate\n        }\n        characterMapping\n    }\n}",
+								"variables": "{\n  \"id\": \"\",\n  \"update\": {\n    \"name\": \"\",\n    \"characterMapping\": true,\n    \"shortenLinks\": true,\n    \"outgoingCodeId\": \"\",\n    \"incomingCodeId\": \"\",\n    \"stopMessage\": {\n      \"messageText\": \"\"\n    },\n    \"keywords\": [\n      \"\"\n    ],\n    \"timeZoneName\": \"\",\n    \"duration\": {\n      \"startDate\": \"\",\n      \"endDate\": \"\"\n    },\n    \"status\": \"\"\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createGlobalCatchAll",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation createGlobalCatchAll ($createGlobalCatchAllInput: CreateGlobalCatchAllInput!) {\n    createGlobalCatchAll (createGlobalCatchAllInput: $createGlobalCatchAllInput) {\n        type\n        id\n        name\n        incomingCode {\n            id\n            name\n            type\n        }\n        outgoingCode {\n            id\n            name\n            type\n        }\n        keywords\n        duration {\n            startDate\n            endDate\n        }\n        responseMessage {\n            messageText\n        }\n        characterMapping\n        shortenLinks\n        status\n        creationDate\n        modifiedDate\n    }\n}",
+								"variables": "{\n  \"createGlobalCatchAllInput\": {\n    \"name\": \"\",\n    \"outgoingCodeId\": \"\",\n    \"incomingCodeId\": \"\",\n    \"responseMessage\": {\n      \"messageText\": \"\"\n    },\n    \"characterMapping\": true,\n    \"shortenLinks\": true\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateGlobalCatchAll",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation updateGlobalCatchAll ($id: String!, $update: UpdateGlobalCatchAllInput!) {\n    updateGlobalCatchAll (id: $id, update: $update) {\n        type\n        id\n        name\n        incomingCode {\n            id\n            name\n            type\n        }\n        outgoingCode {\n            id\n            name\n            type\n        }\n        keywords\n        duration {\n            startDate\n            endDate\n        }\n        responseMessage {\n            messageText\n        }\n        characterMapping\n        shortenLinks\n        status\n        creationDate\n        modifiedDate\n    }\n}",
+								"variables": "{\n  \"id\": \"\",\n  \"update\": {\n    \"name\": \"\",\n    \"outgoingCodeId\": \"\",\n    \"incomingCodeId\": \"\",\n    \"responseMessage\": {\n      \"messageText\": \"\"\n    },\n    \"characterMapping\": true,\n    \"shortenLinks\": true,\n    \"status\": \"\"\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createGlobalHelp",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation createGlobalHelp ($createGlobalHelpInput: CreateGlobalJourneyInput!) {\n    createGlobalHelp (createGlobalHelpInput: $createGlobalHelpInput) {\n        type\n        id\n        name\n        incomingCode {\n            id\n            name\n            type\n        }\n        outgoingCode {\n            id\n            name\n            type\n        }\n        keywords\n        duration {\n            startDate\n            endDate\n        }\n        responseMessage {\n            messageText\n        }\n        characterMapping\n        shortenLinks\n        status\n        creationDate\n        modifiedDate\n    }\n}",
+								"variables": "{\n  \"createGlobalHelpInput\": {\n    \"name\": \"\",\n    \"outgoingCodeId\": \"\",\n    \"incomingCodeId\": \"\",\n    \"keywords\": [\n      \"\"\n    ],\n    \"responseMessage\": {\n      \"messageText\": \"\"\n    },\n    \"characterMapping\": true,\n    \"shortenLinks\": true\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateGlobalHelp",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation updateGlobalHelp ($id: String!, $update: UpdateGlobalJourneyInput!) {\n    updateGlobalHelp (id: $id, update: $update) {\n        type\n        id\n        name\n        incomingCode {\n            id\n            name\n            type\n        }\n        outgoingCode {\n            id\n            name\n            type\n        }\n        keywords\n        duration {\n            startDate\n            endDate\n        }\n        responseMessage {\n            messageText\n        }\n        characterMapping\n        shortenLinks\n        status\n        creationDate\n        modifiedDate\n    }\n}",
+								"variables": "{\n  \"id\": \"\",\n  \"update\": {\n    \"name\": \"\",\n    \"outgoingCodeId\": \"\",\n    \"incomingCodeId\": \"\",\n    \"keywords\": [\n      \"\"\n    ],\n    \"responseMessage\": {\n      \"messageText\": \"\"\n    },\n    \"characterMapping\": true,\n    \"shortenLinks\": true,\n    \"status\": \"\"\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create SMS message",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation Mutation($createSmsInput: CreateSmsInput!) {\n  createSmsMessage(createSmsInput: $createSmsInput) {\n    id\n    name\n    tags\n    status\n    dataSetId\n    body\n    mediaLink\n    shortenLinks\n    characterMapping\n    subscriptionGroupIds\n    tracking {\n      createdAt\n      lastModifiedAt\n    }\n  }\n}",
+								"variables": "{\n  \"createSmsInput\": {\n    \"name\": \"Christmass sale\",\n    \"tags\": [\"xmass\", \"season\", \"winter\"],\n    \"body\": \"Hello %%First Name%%. Christmass is upon us. Check out these amazing offers for our special seasonal sale: https://shop-domain.com/sale\",\n    \"shortenLinks\": true\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update SMS message",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation UpdateSmsMessage($updateSmsInput: UpdateSmsInput!) {\n  updateSmsMessage(updateSmsInput: $updateSmsInput) {\n    id\n    name\n    tags\n    status\n    dataSetId\n    body\n    mediaLink\n    shortenLinks\n    characterMapping\n    subscriptionGroupIds\n    tracking {\n      createdAt\n      lastModifiedAt\n    }\n  }\n}",
+								"variables": "{\n  \"updateSmsInput\": {\n    \"id\": \"{{message_id}}\",\n    \"name\": \"Special offer - updated\",\n    \"tags\": [\"revised\"]\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete SMS message",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation DeleteSmsMessage($id: ID!) {\n  deleteSmsMessage(id: $id) {\n    success\n  }\n}",
+								"variables": "{\n  \"id\": \"{{message_id}}\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "send now message",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation ScheduleMessage($messageId: ID!) {\n  scheduleMessage(messageId: $messageId) {\n    id\n    message {\n      name\n      status\n    }\n  }\n}",
+								"variables": "{\n  \"messageId\": \"{{message_id}}\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "schedule message",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation ScheduleMessage($messageId: ID!, $scheduleInput: ScheduleInput) {\n  scheduleMessage(messageId: $messageId, scheduleInput: $scheduleInput) {\n    id\n    scheduledDateUTC\n    scheduledTimezone\n    maxSendsPerHour\n    message {\n      name\n      status\n    }\n  }\n}",
+								"variables": "{\n  \"messageId\": \"{{message_id}}\",\n  \"scheduleInput\": {\n    \"scheduledDate\": \"2023-12-25T12:00:00\",\n    \"scheduledTimezone\": \"America/New_York\",\n    \"maxSendsPerHour\": 2000\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "test send message",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation Mutation($messageId: ID!, $testSendInput: TestSendInput!) {\n  testSendMessage(messageId: $messageId, testSendInput: $testSendInput) {\n    accepted\n  }\n}",
+								"variables": "{\n  \"messageId\": \"{{message_id}}\",\n  \"testSendInput\": {\n    \"destinationPhoneNumber\": \"1987654321\",\n    \"identityPhoneNumber\": \"1123456789\"\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cancel scheduled message",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation CancelScheduledMessage($messageId: ID!) {\n  cancelScheduledMessage(messageId: $messageId) {\n    id\n    scheduledDateUTC\n    scheduledTimezone\n    maxSendsPerHour\n    message {\n      ... on SmsMessage {\n        name\n        status\n      }\n    }\n  }\n}",
+								"variables": "{\n  \"messageId\": \"{{message_id}}\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "queries",
+			"item": [
+				{
+					"name": "CodeAll",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query CodeAll ($channel: CodeChannelType!) {\n    CodeAll (channel: $channel) {\n        id\n        name\n        type\n        supportsInboundMessaging\n        description\n        creationDate\n        modifiedDate\n        keywords {\n            id\n            name\n            creationDate\n            modifiedDate\n        }\n    }\n}",
+								"variables": "{\n  \"channel\": \"\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CodeById",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query CodeById ($id: ID!, $channel: CodeChannelType!) {\n    CodeById (id: $id, channel: $channel) {\n        id\n        name\n        type\n        supportsInboundMessaging\n        description\n        creationDate\n        modifiedDate\n        keywords {\n            id\n            name\n            creationDate\n            modifiedDate\n        }\n    }\n}",
+								"variables": "{\n  \"id\": 0,\n  \"channel\": \"\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CodeByName",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query CodeByName ($name: String!, $channel: CodeChannelType!) {\n    CodeByName (name: $name, channel: $channel) {\n        id\n        name\n        type\n        supportsInboundMessaging\n        description\n        creationDate\n        modifiedDate\n        keywords {\n            id\n            name\n            creationDate\n            modifiedDate\n        }\n    }\n}",
+								"variables": "{\n  \"name\": \"\",\n  \"channel\": \"\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "KeywordsByCode",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query KeywordsByCode ($codeId: String!) {\n    KeywordsByCode (codeId: $codeId) {\n        id\n        name\n        creationDate\n        modifiedDate\n    }\n}",
+								"variables": "{\n  \"codeId\": \"\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "KeywordsByAggregator",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query KeywordsByAggregator ($aggregatorId: String!) {\n    KeywordsByAggregator (aggregatorId: $aggregatorId) {\n        id\n        name\n        creationDate\n        modifiedDate\n    }\n}",
+								"variables": "{\n  \"aggregatorId\": \"\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "mobileMessagingAutoresponderAll",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query mobileMessagingAutoresponderAll {\n    mobileMessagingAutoresponderAll {\n        type\n        id\n        name\n        incomingCode {\n            id\n            name\n            type\n        }\n        outgoingCode {\n            id\n            name\n            type\n        }\n        keywords\n        duration {\n            startDate\n            endDate\n        }\n        responseMessage {\n            messageText\n        }\n        characterMapping\n        shortenLinks\n        status\n        creationDate\n        modifiedDate\n        twoWayOptInIds\n        timeZoneName\n    }\n}",
+								"variables": "{}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "mobileMessagingAutoresponderById",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query mobileMessagingAutoresponderById ($id: ID!) {\n    mobileMessagingAutoresponderById (id: $id) {\n        type\n        id\n        name\n        incomingCode {\n            id\n            name\n            type\n        }\n        outgoingCode {\n            id\n            name\n            type\n        }\n        keywords\n        duration {\n            startDate\n            endDate\n        }\n        responseMessage {\n            messageText\n        }\n        characterMapping\n        shortenLinks\n        status\n        creationDate\n        modifiedDate\n        twoWayOptInIds\n        timeZoneName\n    }\n}",
+								"variables": "{\n  \"id\": 0\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SubscriptionGroupAll",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query SubscriptionGroupAll ($filter: SubscriptionGroupFilter, $before: String, $after: String, $first: Float, $last: Float) {\n    SubscriptionGroupAll (filter: $filter, before: $before, after: $after, first: $first, last: $last) {\n        edges {\n            node {\n                id\n                type\n                name\n                status\n                outgoingCode {\n                    id\n                    name\n                    type\n                }\n                shortenLinks\n                creationDate\n                modifiedDate\n            }\n            cursor\n        }\n        pageInfo {\n            startCursor\n            endCursor\n            hasPreviousPage\n            hasNextPage\n            count\n        }\n    }\n}",
+								"variables": "{\n  \"filter\": {\n    \"name\": \"\",\n    \"parentId\": \"\",\n    \"types\": [\n      \"\"\n    ],\n    \"codeIds\": [\n      \"\"\n    ],\n    \"statuses\": [\n      \"\"\n    ],\n    \"keywords\": [\n      \"\"\n    ]\n  },\n  \"before\": \"\",\n  \"after\": \"\",\n  \"first\": \"\",\n  \"last\": \"\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SubscriptionGroupById",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query SubscriptionGroupById ($id: ID!) {\n    SubscriptionGroupById (id: $id) {\n        id\n        type\n        name\n        status\n        outgoingCode {\n            id\n            name\n            type\n        }\n        shortenLinks\n        creationDate\n        modifiedDate\n    }\n}",
+								"variables": "{\n  \"id\": 0\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all SMS messages",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query SmsMessages($filter: MessageContentFilter, $after: String, $first: Float) {\n  smsMessages(filter: $filter, after: $after, first: $first) {\n    edges {\n      cursor\n      node {\n        id\n        name\n        tags\n        status\n        body\n        dataSetId\n        tracking {\n          createdAt\n          lastModifiedAt\n        }\n        mediaLink\n        shortenLinks\n        characterMapping\n        subscriptionGroupIds\n      }\n    }\n    pageInfo {\n      startCursor\n      endCursor\n      hasPreviousPage\n      hasNextPage\n      count\n    }\n  }\n}",
+								"variables": "{\n  \"filter\": {\n    \"name\": \"*sale*\",\n    \"lastModified\": {\n      \"from\": \"2023-01-01\",\n      \"to\": \"2023-12-25T12:00:00\"\n    },\n    \"tags\": {\n      \"anyOf\": [\"offer\", \"promo\", \"sale\"]\n    }\n  },\n  \"after\": \"YXJyYXljb25uZWN0aW9uOjI=\",\n  \"first\": 10\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get SMS message by Id",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query SmsMessage($id: ID!) {\n  smsMessage(id: $id) {\n    id\n    name\n    tags\n    status\n    dataSetId\n    tracking {\n      createdAt\n      lastModifiedAt\n    }\n    body\n    mediaLink\n    shortenLinks\n    characterMapping\n    subscriptionGroupIds\n  }\n}",
+								"variables": "{\n  \"id\": \"{{message_id}}\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all mailings",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query Mailings($filter: MessageContentFilter, $last: Float, $before: String) {\n  mailings(filter: $filter, last: $last, before: $before) {\n    edges {\n      cursor\n      node {\n        id\n        sendDateUTC\n        scheduledDateUTC\n        scheduledTimezone\n        maxSendsPerHour\n        message {\n          name\n          status\n          ... on SmsMessage {\n            body\n          }\n        }\n      }\n    }\n    pageInfo {\n      startCursor\n      endCursor\n      hasPreviousPage\n      hasNextPage\n      count\n    }\n  }\n}",
+								"variables": "{\n  \"filter\": {\n    \"name\": \"special offer*\",\n    \"statuses\": [\n      \"SCHEDULED\",\n      \"SENT\"\n    ],\n    \"created\": {\n      \"from\": \"2023-01-01T15:00:00\",\n      \"to\": \"2023-12-30\"\n    }\n  },\n  \"last\": 20,\n  \"before\": \"YXJyYXljb25uZWN0aW9uOjE=\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get mailing by Id",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-acoustic-region",
+								"value": "{{REGION}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query Mailing($messageId: ID!) {\n  mailing(id: $messageId) {\n    id\n    sendDateUTC\n    scheduledDateUTC\n    scheduledTimezone\n    maxSendsPerHour\n    message {\n      name\n      status\n      dataSetId\n      ... on SmsMessage {\n        body\n        subscriptionGroupIds\n      }\n    }\n  }\n}",
+								"variables": "{\n  \"messageId\": \"{{message_id}}\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{API_KEY}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "x-api-key",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "",
+			"type": "any"
+		},
+		{
+			"key": "API_KEY",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "REGION",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "message_id",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
