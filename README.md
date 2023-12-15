@@ -184,9 +184,11 @@ Fields specify properties or attributes of objects to help define what informati
 
 - status: When updating the status of a subscription group, valid values are: PAUSE, RESUME, COMPLETE 
 
-- statuses: When querying objects by status, valid values are: RUNNING, COMPLETED, and PAUSED.  
+- statuses: When querying subscription groups by status, valid values are: RUNNING, COMPLETED, and PAUSED.  
 
-- types: When querying objects by type, valid values are: SMS_ONE_WAY_OPT_IN, SMS_TWO_WAY_OPT_IN, SMS_DOUBLE_OPT_IN, SMS_GLOBAL_OPT_OUT 
+- types: 
+   - When querying subscription groups by type, valid values are: SMS_ONE_WAY_OPT_IN, SMS_TWO_WAY_OPT_IN, SMS_DOUBLE_OPT_IN, SMS_GLOBAL_OPT_OUT 
+   - When querying autoresponders by type, valid values are: SMS_AUTORESPONDER, SMS_GLOBAL_HELP, SMS_GLOBAL_CATCHALL
 
 ### Notes on fields – SMS messages and mailings 
 
