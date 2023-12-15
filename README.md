@@ -24,7 +24,7 @@ This document will walk through the GraphQL operations and object types to help 
 
 5. In the created API definition, paste the contents copied from index.graphql  in step 3 and click Save. 
 
-6. Download "sms-as-a-service.json" collection.
+6. Download "sms-as-a-service.postman_collection.json" collection.
 
 ## Acquiring an API Key 
 
