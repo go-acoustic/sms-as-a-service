@@ -235,8 +235,6 @@ type GlobalOptOut implements SubscriptionGroup{
   incomingCode: SubscriptionGroupCode
   keywords: [String!]!
   stopMessage: MessageType!
-  timeZoneName: String
-  duration: DurationType
   characterMapping: Boolean!
 }
 
@@ -472,14 +470,12 @@ input CreateAutoresponderInput {
 
 input CreateSMSOneWayOptIn {
   name: String!
-  characterMapping: Boolean
-  shortenLinks: Boolean
   outgoingCodeId: String!
 }
 
 input UpdateSMSOneWayOptIn {
-  name: String
-  outgoingCodeId: String
+  name: String!
+  outgoingCodeId: String!
   status: SubscriptionGroupOperation
 }
 
@@ -575,8 +571,6 @@ input CreateGlobalOptOut {
   incomingCodeId: String!
   stopMessage: MessageInput!
   keywords: [String!]!
-  timeZoneName: String
-  duration: DurationInput
 }
 
 input UpdateGlobalOptOut {
@@ -587,8 +581,6 @@ input UpdateGlobalOptOut {
   incomingCodeId: String
   stopMessage: MessageInput
   keywords: [String!]
-  timeZoneName: String
-  duration: DurationInput
   status: SubscriptionGroupOperation
 }
 
