@@ -4,7 +4,12 @@
 
 The new Acoustic Campaign APIs introduced since 2023 are built with GraphQL, a flexible query language that allows you to return as much or as little data as you need. GraphQL is an application layer that parses the query you send and returns (or changes) data accordingly. Acoustic will continue to introduce more GraphQL APIs over time. 
 
-Unlike REST APIs, where multiple endpoints return different data, GraphQL always exposes one endpoint and allows you to determine the structure of the returned data. Our API uses the following endpoint: https://app.goacoustic.com/api/graph 
+Unlike REST APIs, where multiple endpoints return different data, GraphQL always exposes one endpoint and allows you to determine the structure of the returned data. Our API uses the following endpoints by Campaign Pod:
+| Campaign Org Pod | API Hostname |
+|-----|-----|
+| Pod 0-5, 9 | https://connect-gql-us-1.goacoustic.com/ticketmaster |
+| Pod 6 | https://connect-gql-eu-1.goacoustic.com/ticketmaster |
+
 
 This document will walk through the GraphQL operations and object types to help you understand the essential components of a request. 
 
